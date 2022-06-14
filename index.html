@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // IIFE 
+
+        (function (global) {
+            var calobj = (function () {
+                var cal = {};
+
+                function addition(param1, param2) {
+                    return param1 + param2
+                }
+                cal.add = addition;
+                return cal;
+            })();
+            global.add = calobj;
+            // freeze obj have write
+            console.log(global.add.add(4, 6))
+
+        })(window);
+
+
+        // Scope
+
+        var number = 10;
+
+        function sample() {
+            console.log("var Scope :-", number);
+        }
+        sample();
+        console.log("var Scope :-", number);
+
+        function sample2() {
+            let num2 = 20;
+            console.log("var Scope :-", num2);
+        }
+        sample2();
+
+        function sample3() {
+            const num3 = 30;
+            console.log("const Scope:-", num3);
+        }
+        sample3();
+
+        //    {
+        //      var m =1;
+        //      let n =2;
+        //      const o =3;
+        //  }
+        //  console.log(m);
+        //  console.log(n);
+        //  console.log(o);
+
+
+        // Hoisting
+
+        print();
+
+        function print() {
+            console.log("Hoisting function", "ABC");
+        }
+        // console.log(a);
+        // var a =10;
+
+        // console.log(b);
+        // let b =10;
+
+        // console.log(c);
+        // var c =10;
+
+
+        //Clourse
+
+        //its call Function Curring
+        function AddMaker(x) {
+            return function (y) {
+                return x + y;
+            }
+        }
+        var a = AddMaker(10)(5)
+        console.log(a);
+
+        function Printing() {
+            function display() {
+                console.log("DEFGHIJ");
+            }
+            display()
+        }
+        Printing();
+
+
+        //CallBack Function
+
+        //Synchronus
+        //EXAMPLE-1
+        function printSum(result) {
+            console.log("Synchronus:-", result);
+        }
+
+        function Add(num1, num2, printSum) {
+            let num3 = num1 + num2;
+            printSum(num3);
+        }
+        Add(10, 15, printSum)
+
+        //EXAMPLE-2
+        var arr = [1, 2, 3, 4, 5]
+
+        function oddNumber(n) {
+            return n % 2
+        }
+        var odd = arr.filter(oddNumber)
+        //Asynchronus
+        //EXAMPLE1
+        function downloadPicture(url, process) {
+            setTimeout(() => {
+                console.log("Download Picture", url);
+                process(url);
+            }, 1000)
+        }
+
+        function processPicture(url) {
+            console.log("Process Picture", url);
+        }
+        let url = "https://www.google.com/"
+        downloadPicture(url, processPicture);
+
+        //EXAMPLE2
+        console.log("-----------------------");
+        function downloadPicture(url1, process) {
+            setTimeout(() => {
+                console.log("Download Picture", url);
+                process(url);
+            }, 1000)
+        }
+        let url1 ="https://www.google.com/"
+        downloadPicture(url1,function(){
+            console.log("Process Profile",url1);
+            downloadPicture(url1,function(){
+            console.log("Process Profile",url1);
+        });
+        });
+    </script>
+</body>
+
+</html>
